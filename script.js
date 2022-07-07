@@ -27,7 +27,7 @@ function codesToArray(low,high){
 
 // Write password to the #password input
 function writePassword() {
-  // variables to store the user's input 
+  // variable to store the user's input 
   var passwordLength;
   
   // this function was created to ensure the number entered could only be within the 8-128 range by including the conditionals
@@ -39,9 +39,13 @@ function writePassword() {
     } else if(passwordLength > 128){
       alert("Error. Your password can be no more than 128 characters long.")
       neededInput();
-    } else{}
+    } else if(passwordLength === " "){
+      alert("Entry Invalid")
+      neededInput();
+    }
   }
   neededInput();
+  // variables to store user info
   var numberChoice = confirm("Click OK to include numbers in your password")
   var upperCharacters = confirm("Click OK to include uppercase characters in your password")
   var symbolsCheck = confirm("Click OK to include special symbols in your password.")
