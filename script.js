@@ -2,78 +2,57 @@
 var generateBtn = document.querySelector("#generate");
 
 
-// These variables store the value of each range of parameter that is put through the function
-const lower = codesToArray(97, 122);
-const upper = codesToArray(65, 90);
-const numbers = codesToArray(48, 57);
-const symbolCodes = codesToArray(33, 47).concat(
-  codesToArray(58, 64)
-).concat(
-  codesToArray(91, 96)
-).concat(
-  codesToArray(123, 126)
-)
-
-// this function will take the parameters and loop through from the first number to the last within the given range and put them into an array
-function codesToArray(low,high){
-  var newArray = [];
-  for (i = low; i <= high; i++){
-    newArray.push(i)
-  }
-  return newArray 
-}
-
-
-
 // Write password to the #password input
 function writePassword() {
-  // variable to store the user's input 
-  var passwordLength;
+  var lower = "abcdefghijklmnopqrstuvwxyz";
+  var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var numberCatalog = "0123456789";
+  var specialSymbols = "@$^*&)%!.,`~";
+  var pLength;
+  var numbers;
+  var upperCase;
+  var symbolsCheck;
+  var passwordText = document.querySelector("#password");
   
-  // this function was created to ensure the number entered could only be within the 8-128 range by including the conditionals
+
   function neededInput(){
-    passwordLength = prompt("How many characters would you like your password to be? 8-128")
-    if(passwordLength < 8){
-      alert("Error. Your password must be at least 8 characters long.")
-      neededInput();
-    } else if(passwordLength > 128){
-      alert("Error. Your password can be no more than 128 characters long.")
-      neededInput();
-    } else if(passwordLength === " "){
-      alert("Entry Invalid")
-      neededInput();
-    }
+      pLength = prompt("Choose how many characters you would like in your secure password? 8-128")
+      if(pLength < 8 || pLength > 128){
+          alert("Entry invalid. Must choose a number between 8-128. Try again.")
+          passwordText.innerText = " ";
+          return
+      } else {  
+          upperCase = confirm("By default your secure password will include lowercase letters. Click OK to include UPPERCASE.")
+          numbers = confirm("Click OK to include numbers in your secure password.")
+          symbolsCheck = confirm("Click OK to include special symbols in your secure password.")
+      }
+      
   }
   neededInput();
-  // variables to store user info
-  var numberChoice = confirm("Click OK to include numbers in your password")
-  var upperCharacters = confirm("Click OK to include uppercase characters in your password")
-  var symbolsCheck = confirm("Click OK to include special symbols in your password.")
-
-  var password = generatePassword(passwordLength, numberChoice, upperCharacters, symbolsCheck);
-  var passwordText = document.querySelector("#password");
+  //needed to be after the above function in order to record a length value, most likely due to there being no value for the parameter prior to the prompt
+  var password = generatePassword(pLength, upperCase, numbers, symbolsCheck);
+  
   passwordText.value = password;
 
+  function generatePassword(pLength, upperCase, numbers, symbolsCheck){
+      let characterStorage = lower
+      if(upperCase) characterStorage = characterStorage.concat(upper)
+      
+      if(numbers) characterStorage = characterStorage.concat(numberCatalog)
 
-  function generatePassword(passwordLength, numberChoice, upperCharacters, symbolsCheck){
-    // by default the characters are set to lowercase and each conditional will check the boolean of the user's input and concatenate the corresponding array
-    let characters = lower
-    if (numberChoice) characters = characters.concat(numbers)
-    if(upperCharacters) characters = characters.concat(upper)
-    if(symbolsCheck) characters = characters.concat(symbolCodes)
+      if(symbolsCheck) characterStorage = characterStorage.concat(specialSymbols)
+      
 
-    // this ties it all in with the for loop that will take the above outcome and find random numbers that are in the characters array in the amount of the stored user input and will convert the random numbers to their corresponding character on the ASCII chart 
-    // the outcome is stored in the final array and returned as a string into the text area
-    var passHolder = []
-    for (i = 0; i < passwordLength; i++){
-      var passKey = characters[Math.floor(Math.random() * characters.length)] 
-      passHolder.push(String.fromCharCode(passKey))
-    }
-    return passHolder.join('')
-
-
+      console.log(characterStorage);
+      console.log(pLength);
+      
+      var thePassword = "";
+      for(i = 0; i < pLength; i++){
+          var random = characterStorage[Math.floor(Math.random() * characterStorage.length)]
+          thePassword = thePassword.concat(random)
+      } return thePassword
+ 
   }
 }
-
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword)
