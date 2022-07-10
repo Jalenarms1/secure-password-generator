@@ -8,4 +8,6 @@ This assignment helped me analyze my code and find more efficient ways to writin
 
 Overall a great learning experience to further my ability and knowledge using js.
 
+https://jalenarms1.github.io/secure-password-generator/
+
 ![A screenshot of the password generator](./Assets/jspasswrd.png)

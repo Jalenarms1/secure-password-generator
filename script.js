@@ -14,7 +14,7 @@ function writePassword() {
   var symbolsCheck;
   var passwordText = document.querySelector("#password");
   
-
+  // this function is for the required input needed to generate a password, included with conditionals to make sure the entry is within the allowed parameters
   function neededInput(){
       pLength = prompt("Choose how many characters you would like in your secure password? 8-128")
       if(pLength < 8 || pLength > 128){
@@ -29,7 +29,7 @@ function writePassword() {
       
   }
   neededInput();
-  //needed to be after the above function in order to record a length value, most likely due to there being no value for the parameter prior to the prompt
+  
   var password = generatePassword(pLength, upperCase, numbers, symbolsCheck);
   
   passwordText.value = password;
@@ -42,10 +42,11 @@ function writePassword() {
 
       if(symbolsCheck) characterStorage = characterStorage.concat(specialSymbols)
       
-
+      // used to check that the valid values were being applied
       console.log(characterStorage);
       console.log(pLength);
       
+      // this series of code ties in all of the stored values by looping through the comprised string how many ever times the user chose as the length value and is returned using an empty string that the new password is stored in
       var thePassword = "";
       for(i = 0; i < pLength; i++){
           var random = characterStorage[Math.floor(Math.random() * characterStorage.length)]
