@@ -6,6 +6,8 @@ Conditionals also came in very handy in telling the function that generates the 
 
 This assignment helped me analyze my code and find more efficient ways to writing it to get the same output I was expecting
 
+Also, I became more familiar with where certain variables and functions need to be sequenced as far as top-down to make sure everything was able to be utilized properly.
+
 Overall a great learning experience to further my ability and knowledge using js.
 
 https://jalenarms1.github.io/secure-password-generator/
